@@ -14,7 +14,344 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      badges: {
+        Row: {
+          created_at: string | null
+          description: string
+          icon: string
+          id: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          icon: string
+          id?: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          icon?: string
+          id?: string
+          name?: string
+          requirement_type?: string
+          requirement_value?: number
+        }
+        Relationships: []
+      }
+      caregiver_relationships: {
+        Row: {
+          caregiver_id: string
+          created_at: string | null
+          dependent_id: string
+          id: string
+          relationship_type: string
+          status: string
+        }
+        Insert: {
+          caregiver_id: string
+          created_at?: string | null
+          dependent_id: string
+          id?: string
+          relationship_type: string
+          status?: string
+        }
+        Update: {
+          caregiver_id?: string
+          created_at?: string | null
+          dependent_id?: string
+          id?: string
+          relationship_type?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      medication_interactions: {
+        Row: {
+          created_at: string | null
+          description: string
+          id: string
+          interaction_type: string
+          medication_name_1: string
+          medication_name_2: string
+          recommendation: string | null
+          severity: string
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          id?: string
+          interaction_type: string
+          medication_name_1: string
+          medication_name_2: string
+          recommendation?: string | null
+          severity: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          id?: string
+          interaction_type?: string
+          medication_name_1?: string
+          medication_name_2?: string
+          recommendation?: string | null
+          severity?: string
+        }
+        Relationships: []
+      }
+      medication_logs: {
+        Row: {
+          id: string
+          medication_id: string
+          notes: string | null
+          scheduled_for: string
+          taken_at: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          medication_id: string
+          notes?: string | null
+          scheduled_for: string
+          taken_at?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: string
+          medication_id?: string
+          notes?: string | null
+          scheduled_for?: string
+          taken_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "medication_logs_medication_id_fkey"
+            columns: ["medication_id"]
+            isOneToOne: false
+            referencedRelation: "medications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      medications: {
+        Row: {
+          active: boolean | null
+          created_at: string | null
+          dosage: string
+          frequency: string
+          id: string
+          name: string
+          notes: string | null
+          refill_date: string | null
+          time_of_day: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string | null
+          dosage: string
+          frequency: string
+          id?: string
+          name: string
+          notes?: string | null
+          refill_date?: string | null
+          time_of_day: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string | null
+          dosage?: string
+          frequency?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          refill_date?: string | null
+          time_of_day?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mood_logs: {
+        Row: {
+          energy_level: number | null
+          id: string
+          logged_at: string | null
+          mood: string
+          notes: string | null
+          user_id: string
+        }
+        Insert: {
+          energy_level?: number | null
+          id?: string
+          logged_at?: string | null
+          mood: string
+          notes?: string | null
+          user_id: string
+        }
+        Update: {
+          energy_level?: number | null
+          id?: string
+          logged_at?: string | null
+          mood?: string
+          notes?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      pharmacy_refills: {
+        Row: {
+          id: string
+          medication_id: string
+          pharmacy_name: string
+          pharmacy_phone: string | null
+          picked_up_at: string | null
+          ready_at: string | null
+          refill_status: string
+          requested_at: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          medication_id: string
+          pharmacy_name: string
+          pharmacy_phone?: string | null
+          picked_up_at?: string | null
+          ready_at?: string | null
+          refill_status?: string
+          requested_at?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: string
+          medication_id?: string
+          pharmacy_name?: string
+          pharmacy_phone?: string | null
+          picked_up_at?: string | null
+          ready_at?: string | null
+          refill_status?: string
+          requested_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_refills_medication_id_fkey"
+            columns: ["medication_id"]
+            isOneToOne: false
+            referencedRelation: "medications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_level: number | null
+          avatar_xp: number | null
+          created_at: string | null
+          current_streak: number | null
+          display_name: string | null
+          id: string
+          max_streak: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_level?: number | null
+          avatar_xp?: number | null
+          created_at?: string | null
+          current_streak?: number | null
+          display_name?: string | null
+          id: string
+          max_streak?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_level?: number | null
+          avatar_xp?: number | null
+          created_at?: string | null
+          current_streak?: number | null
+          display_name?: string | null
+          id?: string
+          max_streak?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      side_effects: {
+        Row: {
+          effect: string
+          id: string
+          logged_at: string | null
+          medication_id: string
+          notes: string | null
+          severity: string
+          user_id: string
+        }
+        Insert: {
+          effect: string
+          id?: string
+          logged_at?: string | null
+          medication_id: string
+          notes?: string | null
+          severity: string
+          user_id: string
+        }
+        Update: {
+          effect?: string
+          id?: string
+          logged_at?: string | null
+          medication_id?: string
+          notes?: string | null
+          severity?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "side_effects_medication_id_fkey"
+            columns: ["medication_id"]
+            isOneToOne: false
+            referencedRelation: "medications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
